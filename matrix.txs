@@ -1,0 +1,105 @@
+{-
+TorXakis - Model Based Testing
+Copyright (c) 2015-2021 ESI (TNO) and Radboud University
+See LICENSE at root directory of this repository.
+-}
+
+-- ----------------------------------------------------------------------------------------- --
+-- Model of a Queue of Integers,
+-- with inputs 'In !Enq(x)' and 'In !Deq', and with output 'Out !x'.
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- General Data Definitions
+
+-- ----------------------------------------------------------------------------------------- --
+
+
+
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- Operations :
+
+
+TYPEDEF  Op   ::=   Start
+                       | Stop
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- overflow(x) indicates whether integer x is an overflow (for Java)
+--   TorXakis allows unbounded integers, but most programming languages of SUTs
+--   have bounded integers
+
+FUNCDEF overflow (x :: Int) :: Bool
+   ::=
+        (x < -2147483648) \/ ( x > +2147483647)
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- channel definitions
+--   In  :  channel with messages of type QueueOp
+--   Out :  channel with messages of type Int
+
+CHANDEF  Channels  ::=    In   :: Op
+                        ; Out  :: String
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- state automaton definition for a queue
+
+STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
+  ::=
+    STATE
+        stopped, started
+    VAR
+        started :: Bool
+    INIT
+        stopped { started := False }
+    TRANS
+        started  ->  Inp ? op [[ isStart(op) ]]  ->  stopped
+        stopped  ->  Inp ? op [[ isStop(op) ]]  ->  started
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- model definition for the Queue system
+--   declaring channel In  as input channel  (Queue system point of view)
+--   declaring channel Out as output channel (Queue system point of view)
+--   initializing queueStaut with channels In and Out and no parameters
+
+MODELDEF  Matrix
+   ::=
+        CHAN IN    In
+        CHAN OUT   Out
+
+        BEHAVIOUR  matrixStaut [ In, Out ] ( )
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- definition of the tester connection to the sut
+--   the tester is acting as client on a socket
+--   channel In is declared as output (tester point of view), mapped to socket (localhost,7890),
+--     a message of type QueueOp on channel In is encoded as string with standard function toString
+--   channel Out is declared as input (tester point of view), mapped to socket (localhost,7890),
+--     a received string on socket (localhost,7890), which must represent an integer,
+--     is decoded with standard function fromString and forwarded to channel Out
+
+CNECTDEF  Sut
+   ::=
+        CLIENTSOCK
+
+        CHAN  OUT  In                         HOST "localhost"  PORT 7890
+        ENCODE     In ? op               ->  ! toString(op)
+
+        CHAN  IN   Out                        HOST "localhost"  PORT 7890
+        DECODE     Out ! fromString(s)   <-   ? s
+ENDDEF
+
+
+-- ----------------------------------------------------------------------------------------- --
+-- ----------------------------------------------------------------------------------------- --
