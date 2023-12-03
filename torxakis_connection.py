@@ -3,8 +3,8 @@ from enum import Enum
 
 
 class Command(Enum):
-    START = "start"
-    STOP = "stop"
+    START = "Start"
+    STOP = "Stop"
 
 
 def handle_command(command):
@@ -44,7 +44,7 @@ def start_server():
                     continue
 
                 try:
-                    command = tuple(command_str.split('('))
+                    command = tuple(command_str)
                     handle_command(command)
                 except Exception as e:
                     print("Error processing command:", e)
