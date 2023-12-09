@@ -1,4 +1,5 @@
 import os
+import re
 import socket
 from enum import Enum
 
@@ -6,10 +7,10 @@ from enum import Enum
 class Command(Enum):
     START = "Start"
     STOP = "Stop"
+    CREATE_USER = "CreateUser"
 
 
-def handle_command(command, socket):
-
+def handle_command(command, arguments, socket):
     if command == Command.START.value:
         print("Received START command")
         if os.system('docker start synapse') == 0:
@@ -22,6 +23,9 @@ def handle_command(command, socket):
             socket.send(b'stopped\n')
         else:
             socket.send(b'error\n')
+    elif command == Command.CREATE_USER:
+        print("Received CREATE_USER command")
+        socket.send(b'created\n')
     else:
         print("Unknown command:", command)
         socket.send(b'error\n')
@@ -43,10 +47,28 @@ def start_server():
     try:
         while True:
             data = client_socket.recv(1024).decode('utf-8')
-            handle_command(data.strip(), client_socket)
+
+            command, args = extract_command_args(data)
+
+            handle_command(command.strip(), args, client_socket)
 
     finally:
         client_socket.close()
+
+
+def extract_command_args(s):
+    match = re.match(r'(\w+)\((.*)\)', s)
+    if match:
+        command = match.group(1)
+        args = match.group(2).split(',') if match.group(2) else []
+    else:
+        match = re.match(r'(\w+)', s)
+        if match:
+            command = match.group(1)
+            args = []
+        else:
+            return None, None
+    return command, args
 
 
 if __name__ == "__main__":
