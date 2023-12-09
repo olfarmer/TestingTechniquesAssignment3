@@ -7,15 +7,16 @@ class Command(Enum):
     STOP = "Stop"
 
 
-def handle_command(command):
-    if command[0] == Command.START.value:
-        print("Received START command with parameter:", command[1])
-
-    elif command[0] == Command.STOP.value:
-        print("Received STOP command with parameter:", command[1])
-
+def handle_command(command, socket):
+    if command == Command.START.value:
+        print("Received START command")
+        socket.send(b'started')
+    elif command == Command.STOP.value:
+        print("Received STOP command")
+        socket.send(b'stopped')
     else:
-        print("Unknown command:", command[0])
+        print("Unknown command:", command)
+        socket.send(b'error')
 
 
 def start_server():
@@ -32,24 +33,12 @@ def start_server():
         client_socket, client_address = server_socket.accept()
         print(f"Accepted connection from {client_address}")
 
-        data = client_socket.recv(1024).decode('utf-8')
+        while True:
+            data = client_socket.recv(1024).decode('utf-8')
+            print(data)
+            handle_command(data.strip(), client_socket)
 
-        if data:
-            commands = data.split('\n')
 
-            for command_str in commands:
-                command_str = command_str.strip()
-
-                if not command_str:
-                    continue
-
-                try:
-                    command = tuple(command_str)
-                    handle_command(command)
-                except Exception as e:
-                    print("Error processing command:", e)
-        else:
-            print("No data received from client")
 
         client_socket.close()
 
