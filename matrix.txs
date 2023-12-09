@@ -60,8 +60,8 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
     INIT
         stopped { started := False }
     TRANS
-        started  ->  Inp ? op [[ isStart(op) ]]  ->  stopping
-        stopped  ->  Inp ? op [[ isStop(op) ]]  ->  starting
+        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
+        stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started
         stopping -> Outp ! "stopped" -> stopped
 ENDDEF
