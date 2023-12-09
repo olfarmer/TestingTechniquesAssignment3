@@ -10,13 +10,13 @@ class Command(Enum):
 def handle_command(command, socket):
     if command == Command.START.value:
         print("Received START command")
-        socket.send(b'started')
+        socket.send(b'started\n')
     elif command == Command.STOP.value:
         print("Received STOP command")
-        socket.send(b'stopped')
+        socket.send(b'stopped\n')
     else:
         print("Unknown command:", command)
-        socket.send(b'error')
+        socket.send(b'error\n')
 
 
 def start_server():
@@ -32,15 +32,15 @@ def start_server():
     while True:
         client_socket, client_address = server_socket.accept()
         print(f"Accepted connection from {client_address}")
+        try:
+            while True:
 
-        while True:
-            data = client_socket.recv(1024).decode('utf-8')
-            print(data)
-            handle_command(data.strip(), client_socket)
+                data = client_socket.recv(1024).decode('utf-8')
+                print(data)
+                handle_command(data.strip(), client_socket)
 
-
-
-        client_socket.close()
+        finally:
+            client_socket.close()
 
 
 if __name__ == "__main__":
