@@ -12,7 +12,7 @@ class Command(Enum):
     START = "Start"
     STOP = "Stop"
     CREATE_USER = "CreateUser"
-
+    LOGIN_USER = "LoginUser"
 
 def handle_command(command, args, socket):
     if command == Command.START.value:
@@ -32,6 +32,17 @@ def handle_command(command, args, socket):
         try:
             json = adapter.create_user(args[0], args[1])
             socket.send(b"created\n")
+            savedTokens[args[0]] = json["access_token"]
+            return
+        except AssertionError as e:
+            print(e)
+            socket.send(b'error\n')
+            return
+    elif command == Command.LOGIN_USER.value:
+        print("Received LOGIN_USER command")
+        try:
+            json = adapter.login_user(args[0], args[1])
+            socket.send(b"loggedIn\n")
             savedTokens[args[0]] = json["access_token"]
             return
         except AssertionError as e:

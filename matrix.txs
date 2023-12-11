@@ -25,6 +25,7 @@ See LICENSE at root directory of this repository.
 TYPEDEF  Op   ::=   Start
                   | Stop
                   | CreateUser { name :: String; password :: String }
+                  | LoginUser { loginName :: String; loginPassword :: String }
 ENDDEF
 
 
@@ -56,15 +57,18 @@ ENDDEF
 STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
   ::=
     STATE
-        stopped, started, starting, stopping, creatingUser, createdUser
+        stopped, started, starting, stopping, creatingUser, createdUser, loggingIn, loggedIn
     VAR
         started :: Bool;
-        userName :: String
+        userName :: String;
+        password :: String
     INIT
-        stopped { started := False; userName := "" }
+        stopped { started := False; userName := "" ; password := ""}
     TRANS
-        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]] {userName := name(op)}  ->  creatingUser
+        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
+        createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password)) ELSE False FI ]] -> loggingIn
+        loggingIn -> Outp ! "loggedIn" -> loggedIn
 --        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started
