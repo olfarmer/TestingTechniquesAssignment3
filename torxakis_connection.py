@@ -66,6 +66,7 @@ def start_server():
 
 
 def extract_command_args(s):
+    s = s.replace('"', "")
     match = re.match(r'(\w+)\((.*)\)', s)
     if match:
         command = match.group(1)
