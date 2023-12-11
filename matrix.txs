@@ -29,13 +29,14 @@ ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
--- overflow(x) indicates whether integer x is an overflow (for Java)
---   TorXakis allows unbounded integers, but most programming languages of SUTs
---   have bounded integers
-
 FUNCDEF overflow (x :: Int) :: Bool
    ::=
         (x < -2147483648) \/ ( x > +2147483647)
+ENDDEF
+
+FUNCDEF isValidUsername ( val :: String ) :: Bool
+ ::=
+    strinre(val, REGEX('[a-zA-Z0-9_.-]+') )
 ENDDEF
 
 
@@ -61,7 +62,7 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
     INIT
         stopped { started := False }
     TRANS
-        started  ->  Inp ? op [[ isCreateUser(op) ]]  ->  creatingUser
+        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]]  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
         started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting

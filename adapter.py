@@ -19,7 +19,7 @@ def create_user(username, password):
         "password": password,
         "auth": {"type": "m.login.dummy"}
     }
-
+    print(username)
     response = requests.post(url, headers=headers, json=data)
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
 
