@@ -58,13 +58,14 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
     STATE
         stopped, started, starting, stopping, creatingUser, createdUser
     VAR
-        started :: Bool
+        started :: Bool;
+        userName :: String
     INIT
-        stopped { started := False }
+        stopped { started := False; userName := "" }
     TRANS
-        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]]  ->  creatingUser
+        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]] {userName := name(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
-        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
+--        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started
         stopping -> Outp ! "stopped" -> stopped

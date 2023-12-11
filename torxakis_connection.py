@@ -6,6 +6,8 @@ from enum import Enum
 import adapter
 
 
+savedTokens = {}
+
 class Command(Enum):
     START = "Start"
     STOP = "Stop"
@@ -28,13 +30,14 @@ def handle_command(command, args, socket):
     elif command == Command.CREATE_USER.value:
         print("Received CREATE_USER command")
         try:
-            adapter.create_user(args[0], args[1])
+            json = adapter.create_user(args[0], args[1])
+            socket.send(b"created\n")
+            savedTokens[args[0]] = json["access_token"]
+            return
         except AssertionError as e:
             print(e)
-            socket.send(b'error')
+            socket.send(b'error\n')
             return
-
-        socket.send(b'created\n')
     else:
         print("Unknown command:", command)
         socket.send(b'error\n')
