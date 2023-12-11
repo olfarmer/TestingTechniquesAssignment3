@@ -3,6 +3,8 @@ import re
 import socket
 from enum import Enum
 
+import adapter
+
 
 class Command(Enum):
     START = "Start"
@@ -10,7 +12,7 @@ class Command(Enum):
     CREATE_USER = "CreateUser"
 
 
-def handle_command(command, arguments, socket):
+def handle_command(command, args, socket):
     if command == Command.START.value:
         print("Received START command")
         if os.system('docker start synapse') == 0:
@@ -23,8 +25,15 @@ def handle_command(command, arguments, socket):
             socket.send(b'stopped\n')
         else:
             socket.send(b'error\n')
-    elif command == Command.CREATE_USER:
+    elif command == Command.CREATE_USER.value:
         print("Received CREATE_USER command")
+        try:
+            adapter.create_user(args[0], args[1])
+        except AssertionError as e:
+            print(e)
+            socket.send(b'error')
+            return
+
         socket.send(b'created\n')
     else:
         print("Unknown command:", command)

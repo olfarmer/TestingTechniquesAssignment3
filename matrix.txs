@@ -61,12 +61,12 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
     INIT
         stopped { started := False }
     TRANS
+        started  ->  Inp ? op [[ isCreateUser(op) ]]  ->  creatingUser
+        creatingUser -> Outp ! "created" -> createdUser
         started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started
         stopping -> Outp ! "stopped" -> stopped
-        started  ->  Inp ? op [[ isCreateUser(op) ]]  ->  creatingUser
-        creatingUser -> Outp ! "created" -> createdUser
 ENDDEF
 
 
