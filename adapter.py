@@ -1,3 +1,4 @@
+import json
 import os
 
 import requests
@@ -66,6 +67,22 @@ def join_room(access_token, room_id):
     headers = {'Authorization': f'Bearer {access_token}'}
 
     response = requests.post(url, headers=headers)
+    assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
+
+    return response.json()
+
+
+def send_message(user1_access_token, room1_id, message):
+    url = f"{base_url}/_matrix/client/v3/rooms/{room1_id}/state/m.room.message"
+    headers = {
+        "Authorization": f"Bearer {user1_access_token}"
+    }
+    data = {
+        "body": message,
+        "msgtype": "m.text"
+    }
+    response = requests.put(url, headers=headers, data=json.dumps(data))
+
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
 
     return response.json()

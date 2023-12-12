@@ -15,6 +15,7 @@ class Command(Enum):
     CREATE_USER = "CreateUser"
     LOGIN_USER = "LoginUser"
     CREATE_ROOM = "CreateRoom"
+    SEND_MESSAGE = "SendMessage"
 
 def handle_command(command, args, socket):
     if command == Command.START.value:
@@ -58,6 +59,17 @@ def handle_command(command, args, socket):
             json = adapter.create_room(savedTokens[args[0]], args[1])
             roomIds[args[1]] = json["room_id"]
             socket.send(b"created\n")
+            return
+        except AssertionError as e:
+            print(e)
+            socket.send(b'error\n')
+            return
+    elif command == Command.SEND_MESSAGE.value:
+        print("Received SEND_MESSAGE command")
+        try:
+            # Token, room name, message
+            json = adapter.send_message(savedTokens[args[0]], roomIds[args[1]], args[2])
+            socket.send(b"sent\n")
             return
         except AssertionError as e:
             print(e)

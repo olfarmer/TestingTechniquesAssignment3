@@ -27,7 +27,10 @@ TYPEDEF  Op   ::=   Start
                   | CreateUser { name :: String; password :: String }
                   | LoginUser { loginName :: String; loginPassword :: String }
                   | CreateRoom { userName :: String; roomName :: String }
+                  | SendMessage { senderName :: String; targetRoom :: String; message :: String}
 ENDDEF
+
+TYPEDEF StringList ::= StringNull | Cstr_string { head :: String; tail :: StringList } ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
@@ -51,13 +54,19 @@ FUNCDEF isValidPassword ( val :: String ) :: Bool
     strinre(val, REGEX('.{1,50}') )
 ENDDEF
 
+FUNCDEF contains ( name :: String; list :: StringList ) :: Bool
+    ::=
+    IF isStringNull(list)
+    THEN False
+    ELSE (name == head(list)) \/ contains ( name, tail(list) )
+    FI
+ENDDEF
+
 
 
 
 -- ----------------------------------------------------------------------------------------- --
 -- channel definitions
---   In  :  channel with messages of type QueueOp
---   Out :  channel with messages of type Int
 
 CHANDEF  Channels  ::=    In   :: Op
                         ; Out  :: String
@@ -65,26 +74,31 @@ ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
--- state automaton definition for a queue
+-- state automaton definition
 
 STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
   ::=
     STATE
-        stopped, started, starting, stopping, creatingUser, createdUser, loggingIn, loggedIn, creatingRoom, createdRoom
+        stopped, started, starting, stopping, creatingUser, createdUser, loggingIn, loggedIn, creatingRoom, createdRoom, sendingMessage
     VAR
         started :: Bool;
         userName :: String;
         password :: String;
+        userName2 :: String;
+        password2 :: String;
         roomName :: String
     INIT
-        stopped { started := False; userName := "" ; password := ""; roomName := ""}
+        stopped { started := False; userName := "" ; password := ""; roomName := ""; userName2 := ""; password2 := ""}
     TRANS
         started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
+--        started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName2 := name(op); password2 := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
         createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password)) ELSE False FI ]] -> loggingIn
         loggingIn -> Outp ! "loggedIn" -> loggedIn
         loggedIn -> Inp ? op [[ IF isCreateRoom(op) THEN (isValidUsername(roomName(op)) /\ (userName(op) == userName)) ELSE False FI ]] {roomName := roomName(op)}  ->  creatingRoom
         creatingRoom -> Outp ! "created" -> createdRoom
+        createdRoom -> Inp ? op [[ IF isSendMessage(op) THEN (senderName(op) == userName /\ (targetRoom(op) == roomName)) ELSE False FI ]] -> sendingMessage
+        sendingMessage -> Outp ! "sent" -> createdRoom
         createdRoom -> ISTEP -> started
 --        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
