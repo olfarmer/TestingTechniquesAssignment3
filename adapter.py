@@ -41,7 +41,7 @@ def login_user(username, password):
     return response.json()
 
 
-def create_room(access_token, invites):
+def create_room(access_token, room_name):
     url = f"{base_url}/_matrix/client/v3/createRoom"
     headers = {
         'Content-Type': 'application/json',
@@ -49,11 +49,10 @@ def create_room(access_token, invites):
     }
     data = {
         "creation_content": {"m.federate": False},
-        "name": "room1",
+        "name": room_name,
         "preset": "public_chat",
-        "room_alias_name": "room1",
-        "topic": "Topic of room1",
-        "invite": invites
+        "room_alias_name": room_name,
+        "topic": "Topic of " + room_name
     }
 
     response = requests.post(url, headers=headers, json=data)

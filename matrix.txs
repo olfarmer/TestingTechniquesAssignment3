@@ -26,6 +26,7 @@ TYPEDEF  Op   ::=   Start
                   | Stop
                   | CreateUser { name :: String; password :: String }
                   | LoginUser { loginName :: String; loginPassword :: String }
+                  | CreateRoom { userName :: String; roomName :: String }
 ENDDEF
 
 
@@ -39,6 +40,18 @@ FUNCDEF isValidUsername ( val :: String ) :: Bool
  ::=
     strinre(val, REGEX('[a-zA-Z0-9_.-]+') )
 ENDDEF
+
+FUNCDEF isValidRoomname ( val :: String ) :: Bool
+ ::=
+    strinre(val, REGEX('[a-zA-Z0-9_.-!?&$;]+') )
+ENDDEF
+
+FUNCDEF isValidPassword ( val :: String ) :: Bool
+ ::=
+    strinre(val, REGEX('.{1,50}') )
+ENDDEF
+
+
 
 
 -- ----------------------------------------------------------------------------------------- --
@@ -57,18 +70,22 @@ ENDDEF
 STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
   ::=
     STATE
-        stopped, started, starting, stopping, creatingUser, createdUser, loggingIn, loggedIn
+        stopped, started, starting, stopping, creatingUser, createdUser, loggingIn, loggedIn, creatingRoom, createdRoom
     VAR
         started :: Bool;
         userName :: String;
-        password :: String
+        password :: String;
+        roomName :: String
     INIT
-        stopped { started := False; userName := "" ; password := ""}
+        stopped { started := False; userName := "" ; password := ""; roomName := ""}
     TRANS
-        started  ->  Inp ? op [[ IF isCreateUser(op) THEN isValidUsername(name(op)) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
+        started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
         createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password)) ELSE False FI ]] -> loggingIn
         loggingIn -> Outp ! "loggedIn" -> loggedIn
+        loggedIn -> Inp ? op [[ IF isCreateRoom(op) THEN (isValidUsername(roomName(op)) /\ (userName(op) == userName)) ELSE False FI ]] {roomName := roomName(op)}  ->  creatingRoom
+        creatingRoom -> Outp ! "created" -> createdRoom
+        createdRoom -> ISTEP -> started
 --        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started

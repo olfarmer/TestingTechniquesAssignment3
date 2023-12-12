@@ -7,12 +7,14 @@ import adapter
 
 
 savedTokens = {}
+roomIds = {}
 
 class Command(Enum):
     START = "Start"
     STOP = "Stop"
     CREATE_USER = "CreateUser"
     LOGIN_USER = "LoginUser"
+    CREATE_ROOM = "CreateRoom"
 
 def handle_command(command, args, socket):
     if command == Command.START.value:
@@ -49,6 +51,18 @@ def handle_command(command, args, socket):
             print(e)
             socket.send(b'error\n')
             return
+    elif command == Command.CREATE_ROOM.value:
+        print("Received CREATE_ROOM command")
+        try:
+            # Token, room name
+            json = adapter.create_room(savedTokens[args[0]], args[1])
+            roomIds[args[1]] = json["room_id"]
+            socket.send(b"created\n")
+            return
+        except AssertionError as e:
+            print(e)
+            socket.send(b'error\n')
+            return
     else:
         print("Unknown command:", command)
         socket.send(b'error\n')
@@ -74,7 +88,8 @@ def start_server():
             command, args = extract_command_args(data)
 
             handle_command(command.strip(), args, client_socket)
-
+    except Exception as e:
+        print(e)
     finally:
         client_socket.close()
 
