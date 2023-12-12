@@ -1,12 +1,8 @@
-# Will be run before each run
-# def setUpRun():
-
-
-# def tearDownRun():
-
 import adapter
+import unittest
+import os
 
-class ModelName:
+class ModelName(unittest.TestCase):
     # Vertices
     def stopped(self):
         pass
@@ -17,9 +13,10 @@ class ModelName:
     # Edges
     def starting(self):
         print("Starting the homeserver")
-        pass
+        self.assertTrue(os.system('docker start synapse') == 0, 'Error starting docker container')
 
     def stopping(self):
-        pass
+        print("Stopping the homeserver")
+        self.assertTrue(os.system('docker stop synapse') == 0, 'Error stopping docker container')
 
 
