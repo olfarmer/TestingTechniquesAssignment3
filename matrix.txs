@@ -144,4 +144,14 @@ ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
+-- Test Purpose
 -- ----------------------------------------------------------------------------------------- --
+
+PURPDEF  Purp ::=
+        CHAN IN    In
+        CHAN OUT   Out
+
+        GOAL m1  ::=  In !Start     >->  Out ?r  >->
+                      In !CreateUser("tester","tester123")     >->  Out ?r  >->
+                      In !LoginUser("tester","tester123")     >->  Out ?r  >-> HIT
+ENDDEF
