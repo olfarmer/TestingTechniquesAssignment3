@@ -1,0 +1,125 @@
+Running:
+
+[2023-12-13 17:23:55.438015] ModelName.starting - RUNNING...
+[2023-12-13 17:23:55.439012] ModelName.starting - PASSED
+[2023-12-13 17:23:55.452048] ModelName.e_starting - RUNNING...
+[2023-12-13 17:23:55.808806] ModelName.e_starting - PASSED
+  Output:
+
+  Starting the homeserver
+
+
+[2023-12-13 17:23:55.833544] ModelName.started - RUNNING...
+[2023-12-13 17:23:55.837525] ModelName.started - PASSED
+[2023-12-13 17:23:55.862957] ModelName.creatingUser - RUNNING...
+[2023-12-13 17:23:55.892339] ModelName.creatingUser - FAILED
+  Output:
+
+  Creating a user
+  {'username': 'awedApricots6', 'password': 'e-uejecT8HXW6w', 'auth': {'type': 'm.login.dummy'}}
+
+
+  Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+  Traceback (most recent call last):
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+      httplib_response = self._make_request(
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+      six.raise_from(e, None)
+    File "<string>", line 3, in raise_from
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+      httplib_response = conn.getresponse()
+    File "C:\Python\Python310\lib\http\client.py", line 1374, in getresponse
+      response.begin()
+    File "C:\Python\Python310\lib\http\client.py", line 318, in begin
+      version, status, reason = self._read_status()
+    File "C:\Python\Python310\lib\http\client.py", line 287, in _read_status
+      raise RemoteDisconnected("Remote end closed connection without"
+  http.client.RemoteDisconnected: Remote end closed connection without response
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "C:\Python\Python310\lib\site-packages\requests\adapters.py", line 489, in send
+      resp = conn.urlopen(
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+      retries = retries.increment(
+    File "C:\Python\Python310\lib\site-packages\urllib3\util\retry.py", line 550, in increment
+      raise six.reraise(type(error), error, _stacktrace)
+    File "C:\Python\Python310\lib\site-packages\urllib3\packages\six.py", line 769, in reraise
+      raise value.with_traceback(tb)
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+      httplib_response = self._make_request(
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
+      six.raise_from(e, None)
+    File "<string>", line 3, in raise_from
+    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
+      httplib_response = conn.getresponse()
+    File "C:\Python\Python310\lib\http\client.py", line 1374, in getresponse
+      response.begin()
+    File "C:\Python\Python310\lib\http\client.py", line 318, in begin
+      version, status, reason = self._read_status()
+    File "C:\Python\Python310\lib\http\client.py", line 287, in _read_status
+      raise RemoteDisconnected("Remote end closed connection without"
+  urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+
+  During handling of the above exception, another exception occurred:
+
+  Traceback (most recent call last):
+    File "C:\Python\Python310\lib\site-packages\altwalker\executor.py", line 64, in get_step_result
+      ret = callable(*args, **kwargs)
+    File "C:\Users\Lars\Documents\Studie\Testing_Techniques\assignment3\TestingTechniquesAssignment3\altwalker\tests\test.py", line 44, in creatingUser
+      response = adapter.create_user(username[0], password)
+    File "C:\Users\Lars\Documents\Studie\Testing_Techniques\assignment3\TestingTechniquesAssignment3\altwalker\.\adapter.py", line 24, in create_user
+      response = requests.post(url, headers=headers, json=data)
+    File "C:\Python\Python310\lib\site-packages\requests\api.py", line 115, in post
+      return request("post", url, data=data, json=json, **kwargs)
+    File "C:\Python\Python310\lib\site-packages\requests\api.py", line 59, in request
+      return session.request(method=method, url=url, **kwargs)
+    File "C:\Python\Python310\lib\site-packages\requests\sessions.py", line 587, in request
+      resp = self.send(prep, **send_kwargs)
+    File "C:\Python\Python310\lib\site-packages\requests\sessions.py", line 701, in send
+      r = adapter.send(request, **kwargs)
+    File "C:\Python\Python310\lib\site-packages\requests\adapters.py", line 547, in send
+      raise ConnectionError(err, request=request)
+  requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+  
+
+
+
+Statistics:
+
+  Model Coverage...............................0%
+  Number of Models..............................1
+  Completed Models..............................0
+  Incomplete Models.............................0
+  Not Executed Models...........................0
+  Failed Models.................................1
+
+  Vertex Coverage.............................40%
+  Number of Vertices............................5
+  Visited Vertices..............................2
+  Unvisited Vertices............................3
+
+  Unvisited Vertices:
+
+    * v2 - ModelName.createdUser
+    * v3 - ModelName.createdRoom
+    * v4 - ModelName.stopped
+
+
+  Edge Coverage...............................40%
+  Number of Edges...............................5
+  Visited Edges.................................2
+  Unvisited Edges...............................3
+
+  Unvisited Edges:
+
+    * e2 - ModelName.creatingRoom
+    * e3 - ModelName.sendingMessage
+    * e4 - ModelName.stopping
+
+
+
+Status:  FAILED 
+

@@ -5,28 +5,62 @@
             "name": "ModelName",
             "generator": "random(edge_coverage(100) && vertex_coverage(100))",
             "startElementId": "v0",
+            "actions": [
+                "users = [];",
+                "rooms = [];"
+            ],
             "vertices": [
                 {
                     "id": "v0",
-                    "name": "stopped"
+                    "name": "starting"
                 },
                 {
                     "id": "v1",
                     "name": "started"
+                },
+                {
+                    "id": "v2",
+                    "name": "createdUser"
+                },
+                {
+                    "id": "v3",
+                    "name": "createdRoom"
+                },
+                {
+                    "id": "v4",
+                    "name": "stopped"
                 }
             ],
             "edges": [
                 {
                     "id": "e0",
-                    "name": "starting",
+                    "name": "e_starting",
                     "sourceVertexId": "v0",
                     "targetVertexId": "v1"
                 },
                 {
                     "id": "e1",
-                    "name": "stopping",
+                    "name": "creatingUser",
                     "sourceVertexId": "v1",
-                    "targetVertexId": "v0"
+                    "targetVertexId": "v2"
+                },
+                {
+                    "id": "e2",
+                    "name": "creatingRoom",
+                    "sourceVertexId": "v2",
+                    "targetVertexId": "v3"
+                },
+                {
+                    "id": "e3",
+                    "name": "sendingMessage",
+                    "sourceVertexId": "v3",
+                    "targetVertexId": "v3"
+                },
+                {
+                    "id": "e4",
+                    "name": "stopping",
+                    "sourceVertexId": "v3",
+                    "targetVertexId": "v4"
                 }
             ]
         }

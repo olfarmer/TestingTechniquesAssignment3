@@ -9,7 +9,7 @@ base_url = "http://localhost:8008"
 
 def reset_database():
     os.system('docker exec -it synapse rm /data/homeserver.db')
-    os.system('docker restart synapse')
+    # os.system('docker restart synapse')
 
 
 def create_user(username, password):
@@ -20,7 +20,6 @@ def create_user(username, password):
         "password": password,
         "auth": {"type": "m.login.dummy"}
     }
-    print(username)
     response = requests.post(url, headers=headers, json=data)
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
 
