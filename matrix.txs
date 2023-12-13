@@ -5,21 +5,7 @@ See LICENSE at root directory of this repository.
 -}
 
 -- ----------------------------------------------------------------------------------------- --
--- Model of a Queue of Integers,
--- with inputs 'In !Enq(x)' and 'In !Deq', and with output 'Out !x'.
-
-
--- ----------------------------------------------------------------------------------------- --
--- General Data Definitions
-
--- ----------------------------------------------------------------------------------------- --
-
-
-
-
-
--- ----------------------------------------------------------------------------------------- --
--- Operations :
+-- Model of a part of Matrix Client-Server API
 
 
 TYPEDEF  Op   ::=   Start
@@ -30,14 +16,7 @@ TYPEDEF  Op   ::=   Start
                   | SendMessage { senderName :: String; targetRoom :: String; message :: String}
 ENDDEF
 
-TYPEDEF StringList ::= StringNull | Cstr_string { head :: String; tail :: StringList } ENDDEF
-
-
 -- ----------------------------------------------------------------------------------------- --
-FUNCDEF overflow (x :: Int) :: Bool
-   ::=
-        (x < -2147483648) \/ ( x > +2147483647)
-ENDDEF
 
 FUNCDEF isValidUsername ( val :: String ) :: Bool
  ::=
@@ -53,16 +32,6 @@ FUNCDEF isValidPassword ( val :: String ) :: Bool
  ::=
     strinre(val, REGEX('.{1,50}') )
 ENDDEF
-
-FUNCDEF contains ( name :: String; list :: StringList ) :: Bool
-    ::=
-    IF isStringNull(list)
-    THEN False
-    ELSE (name == head(list)) \/ contains ( name, tail(list) )
-    FI
-ENDDEF
-
-
 
 
 -- ----------------------------------------------------------------------------------------- --
@@ -91,7 +60,7 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
         stopped { started := False; userName := "" ; password := ""; roomName := ""; userName2 := ""; password2 := ""}
     TRANS
         started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
---        started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName2 := name(op); password2 := password(op)}  ->  creatingUser
+        started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName2 := name(op); password2 := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
         createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password)) ELSE False FI ]] -> loggingIn
         loggingIn -> Outp ! "loggedIn" -> loggedIn
@@ -100,7 +69,7 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
         createdRoom -> Inp ? op [[ IF isSendMessage(op) THEN (senderName(op) == userName /\ (targetRoom(op) == roomName)) ELSE False FI ]] -> sendingMessage
         sendingMessage -> Outp ! "sent" -> createdRoom
         createdRoom -> ISTEP -> started
---        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
+        started  ->  Inp ? op [[ isStop(op) ]]  ->  stopping
         stopped  ->  Inp ? op [[ isStart(op) ]]  ->  starting
         starting -> Outp ! "started" -> started
         stopping -> Outp ! "stopped" -> stopped
@@ -108,10 +77,7 @@ ENDDEF
 
 
 -- ----------------------------------------------------------------------------------------- --
--- model definition for the Queue system
---   declaring channel In  as input channel  (Queue system point of view)
---   declaring channel Out as output channel (Queue system point of view)
---   initializing queueStaut with channels In and Out and no parameters
+-- model definition for the Matrix system
 
 MODELDEF  Matrix
    ::=
@@ -124,12 +90,6 @@ ENDDEF
 
 -- ----------------------------------------------------------------------------------------- --
 -- definition of the tester connection to the sut
---   the tester is acting as client on a socket
---   channel In is declared as output (tester point of view), mapped to socket (localhost,7890),
---     a message of type QueueOp on channel In is encoded as string with standard function toString
---   channel Out is declared as input (tester point of view), mapped to socket (localhost,7890),
---     a received string on socket (localhost,7890), which must represent an integer,
---     is decoded with standard function fromString and forwarded to channel Out
 
 CNECTDEF  Sut
    ::=
