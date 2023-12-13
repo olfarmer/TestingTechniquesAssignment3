@@ -62,7 +62,8 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
         started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
         started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName2 := name(op); password2 := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
-        createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password)) ELSE False FI ]] -> loggingIn
+        creatingUser -> ISTEP -> started
+        createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password) /\ (not(loginName(op) == ""))) ELSE False FI ]] -> loggingIn
         loggingIn -> Outp ! "loggedIn" -> loggedIn
         loggedIn -> Inp ? op [[ IF isCreateRoom(op) THEN (isValidUsername(roomName(op)) /\ (userName(op) == userName)) ELSE False FI ]] {roomName := roomName(op)}  ->  creatingRoom
         creatingRoom -> Outp ! "created" -> createdRoom
