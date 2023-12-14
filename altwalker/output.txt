@@ -1,125 +1,98 @@
 Running:
 
-[2023-12-13 17:23:55.438015] ModelName.starting - RUNNING...
-[2023-12-13 17:23:55.439012] ModelName.starting - PASSED
-[2023-12-13 17:23:55.452048] ModelName.e_starting - RUNNING...
-[2023-12-13 17:23:55.808806] ModelName.e_starting - PASSED
-  Output:
-
-  Starting the homeserver
-
-
-[2023-12-13 17:23:55.833544] ModelName.started - RUNNING...
-[2023-12-13 17:23:55.837525] ModelName.started - PASSED
-[2023-12-13 17:23:55.862957] ModelName.creatingUser - RUNNING...
-[2023-12-13 17:23:55.892339] ModelName.creatingUser - FAILED
+[2023-12-14 15:21:07.239473] setUpRun - RUNNING...
+[2023-12-14 15:21:10.231209] setUpRun - PASSED
+[2023-12-14 15:21:10.248371] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.250415] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.301079] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.303390] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.315188] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:10.555062] ImprovedModel.createUser - PASSED
   Output:
 
   Creating a user
-  {'username': 'awedApricots6', 'password': 'e-uejecT8HXW6w', 'auth': {'type': 'm.login.dummy'}}
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'w6p7z2fg', 'message': '', 'users': '[]', 'username': 'ab71zycnquf0'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]
 
 
-  Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+[2023-12-14 15:21:10.576826] ImprovedModel.loginUser - RUNNING...
+[2023-12-14 15:21:10.577824] ImprovedModel.loginUser - PASSED
+[2023-12-14 15:21:10.586785] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.595392] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.625456] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:10.907575] ImprovedModel.createUser - PASSED
+  Output:
 
-  Traceback (most recent call last):
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
-      httplib_response = self._make_request(
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
-      six.raise_from(e, None)
-    File "<string>", line 3, in raise_from
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
-      httplib_response = conn.getresponse()
-    File "C:\Python\Python310\lib\http\client.py", line 1374, in getresponse
-      response.begin()
-    File "C:\Python\Python310\lib\http\client.py", line 318, in begin
-      version, status, reason = self._read_status()
-    File "C:\Python\Python310\lib\http\client.py", line 287, in _read_status
-      raise RemoteDisconnected("Remote end closed connection without"
-  http.client.RemoteDisconnected: Remote end closed connection without response
-
-  During handling of the above exception, another exception occurred:
-
-  Traceback (most recent call last):
-    File "C:\Python\Python310\lib\site-packages\requests\adapters.py", line 489, in send
-      resp = conn.urlopen(
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
-      retries = retries.increment(
-    File "C:\Python\Python310\lib\site-packages\urllib3\util\retry.py", line 550, in increment
-      raise six.reraise(type(error), error, _stacktrace)
-    File "C:\Python\Python310\lib\site-packages\urllib3\packages\six.py", line 769, in reraise
-      raise value.with_traceback(tb)
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
-      httplib_response = self._make_request(
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 449, in _make_request
-      six.raise_from(e, None)
-    File "<string>", line 3, in raise_from
-    File "C:\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 444, in _make_request
-      httplib_response = conn.getresponse()
-    File "C:\Python\Python310\lib\http\client.py", line 1374, in getresponse
-      response.begin()
-    File "C:\Python\Python310\lib\http\client.py", line 318, in begin
-      version, status, reason = self._read_status()
-    File "C:\Python\Python310\lib\http\client.py", line 287, in _read_status
-      raise RemoteDisconnected("Remote end closed connection without"
-  urllib3.exceptions.ProtocolError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
-
-  During handling of the above exception, another exception occurred:
-
-  Traceback (most recent call last):
-    File "C:\Python\Python310\lib\site-packages\altwalker\executor.py", line 64, in get_step_result
-      ret = callable(*args, **kwargs)
-    File "C:\Users\Lars\Documents\Studie\Testing_Techniques\assignment3\TestingTechniquesAssignment3\altwalker\tests\test.py", line 44, in creatingUser
-      response = adapter.create_user(username[0], password)
-    File "C:\Users\Lars\Documents\Studie\Testing_Techniques\assignment3\TestingTechniquesAssignment3\altwalker\.\adapter.py", line 24, in create_user
-      response = requests.post(url, headers=headers, json=data)
-    File "C:\Python\Python310\lib\site-packages\requests\api.py", line 115, in post
-      return request("post", url, data=data, json=json, **kwargs)
-    File "C:\Python\Python310\lib\site-packages\requests\api.py", line 59, in request
-      return session.request(method=method, url=url, **kwargs)
-    File "C:\Python\Python310\lib\site-packages\requests\sessions.py", line 587, in request
-      resp = self.send(prep, **send_kwargs)
-    File "C:\Python\Python310\lib\site-packages\requests\sessions.py", line 701, in send
-      r = adapter.send(request, **kwargs)
-    File "C:\Python\Python310\lib\site-packages\requests\adapters.py", line 547, in send
-      raise ConnectionError(err, request=request)
-  requests.exceptions.ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
-  
+  Creating a user
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'f6ntv2ct', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]", 'username': 'fpbcd7evtx90'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]
 
 
+[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - RUNNING...
+[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - PASSED
+[2023-12-14 15:21:10.946260] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.946260] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.963595] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.965118] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.978429] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:11.235351] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': '3wt9795g', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct',
+  'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]", 'username': 'zy4bzyv7emn0'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}, {'username': 'zy4bzyv7emn0', 'password': '3wt9795g', 'access_token':
+  'syt_enk0Ynp5djdlbW4w_kmyrlsCifVCMOTNLSqPa_3syf8R'}]
+
+
+[2023-12-14 15:21:11.257265] ImprovedModel.dontLoginUser - RUNNING...
+[2023-12-14 15:21:11.258268] ImprovedModel.dontLoginUser - PASSED
+[2023-12-14 15:21:11.270781] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.272782] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:11.287813] ImprovedModel.creatingRoom - RUNNING...
+[2023-12-14 15:21:11.433642] ImprovedModel.creatingRoom - PASSED
+  Output:
+
+  Creating a room
+
+
+[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - RUNNING...
+[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - PASSED
+[2023-12-14 15:21:11.473560] ImprovedModel.createdRoom - RUNNING...
+[2023-12-14 15:21:11.475142] ImprovedModel.createdRoom - PASSED
+[2023-12-14 15:21:11.486518] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.486518] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:11.505155] ImprovedModel.sendingMessage - RUNNING...
+[2023-12-14 15:21:11.547067] ImprovedModel.sendingMessage - PASSED
+  Output:
+
+  Sending message
+
+
+[2023-12-14 15:21:11.555135] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.555135] ImprovedModel.idle - PASSED
 
 Statistics:
 
-  Model Coverage...............................0%
+  Model Coverage.............................100%
   Number of Models..............................1
-  Completed Models..............................0
+  Completed Models..............................1
   Incomplete Models.............................0
   Not Executed Models...........................0
-  Failed Models.................................1
+  Failed Models.................................0
 
-  Vertex Coverage.............................40%
-  Number of Vertices............................5
-  Visited Vertices..............................2
-  Unvisited Vertices............................3
+  Vertex Coverage............................100%
+  Number of Vertices............................3
+  Visited Vertices..............................3
+  Unvisited Vertices............................0
 
-  Unvisited Vertices:
-
-    * v2 - ModelName.createdUser
-    * v3 - ModelName.createdRoom
-    * v4 - ModelName.stopped
-
-
-  Edge Coverage...............................40%
-  Number of Edges...............................5
-  Visited Edges.................................2
-  Unvisited Edges...............................3
-
-  Unvisited Edges:
-
-    * e2 - ModelName.creatingRoom
-    * e3 - ModelName.sendingMessage
-    * e4 - ModelName.stopping
+  Edge Coverage..............................100%
+  Number of Edges...............................6
+  Visited Edges.................................6
+  Unvisited Edges...............................0
 
 
-
-Status:  FAILED 
+Status:  PASSED 
 
