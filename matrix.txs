@@ -57,15 +57,14 @@ STAUTDEF matrixStaut [ Inp :: Op; Outp :: String ] ( )
         password2 :: String;
         roomName :: String
     INIT
-        stopped { started := False; userName := "" ; password := ""; roomName := ""; userName2 := ""; password2 := ""}
+        stopped { started := False; userName := "" ; password := ""; roomName := "" }
     TRANS
         started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName := name(op); password := password(op)}  ->  creatingUser
-        started  ->  Inp ? op [[ IF isCreateUser(op) THEN (isValidUsername(name(op)) /\ isValidPassword(password(op))) ELSE False FI ]] {userName2 := name(op); password2 := password(op)}  ->  creatingUser
         creatingUser -> Outp ! "created" -> createdUser
-        creatingUser -> ISTEP -> started
+--        creatingUser -> ISTEP -> started
         createdUser -> Inp ? op [[ IF isLoginUser(op) THEN (loginName(op) == userName /\ (loginPassword(op) == password) /\ (not(loginName(op) == ""))) ELSE False FI ]] -> loggingIn
         loggingIn -> Outp ! "loggedIn" -> loggedIn
-        loggedIn -> Inp ? op [[ IF isCreateRoom(op) THEN (isValidUsername(roomName(op)) /\ (userName(op) == userName)) ELSE False FI ]] {roomName := roomName(op)}  ->  creatingRoom
+        loggedIn -> Inp ? op [[ IF isCreateRoom(op) THEN ((userName(op) == userName)) ELSE False FI ]] {roomName := roomName(op)}  ->  creatingRoom
         creatingRoom -> Outp ! "created" -> createdRoom
         createdRoom -> Inp ? op [[ IF isSendMessage(op) THEN (senderName(op) == userName /\ (targetRoom(op) == roomName)) ELSE False FI ]] -> sendingMessage
         sendingMessage -> Outp ! "sent" -> createdRoom
@@ -114,5 +113,6 @@ PURPDEF  Purp ::=
 
         GOAL m1  ::=  In !Start     >->  Out ?r  >->
                       In !CreateUser("tester","tester123")     >->  Out ?r  >->
-                      In !LoginUser("tester","tester123")     >->  Out ?r  >-> HIT
+                      In !LoginUser("tester","tester123")     >->  Out ?r  >->
+                      In !CreateRoom("tester","")     >->  Out ?r  >->  HIT
 ENDDEF

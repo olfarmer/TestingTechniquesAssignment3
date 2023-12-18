@@ -64,6 +64,8 @@ def handle_command(command, args, socket):
             print(e)
             socket.send(b'error\n')
             return
+        except Exception as e:
+            print("Error executing the command: " + e)
     elif command == Command.SEND_MESSAGE.value:
         print("Received SEND_MESSAGE command")
         try:
@@ -96,22 +98,24 @@ def start_server():
     try:
         while True:
             data = client_socket.recv(1024).decode('utf-8')
+            print("data:" + data)
+            if data is None or data.strip() == "":
+                continue
 
             command, args = extract_command_args(data)
 
             handle_command(command.strip(), args, client_socket)
-    except Exception as e:
-        print(e)
     finally:
         client_socket.close()
 
 
 def extract_command_args(s):
-    s = s.replace('"', "")
+
     match = re.match(r'(\w+)\((.*)\)', s)
     if match:
         command = match.group(1)
         args = match.group(2).split(',') if match.group(2) else []
+        args = [s.replace('"', '') for s in args]
     else:
         match = re.match(r'(\w+)', s)
         if match:
