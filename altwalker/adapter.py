@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 import requests
 
@@ -7,9 +8,12 @@ import requests
 base_url = "http://localhost:8008"
 
 
-def reset_database():
+def reset_homeserver():
+    os.system('docker start synapse')
     os.system('docker exec -it synapse rm /data/homeserver.db')
     os.system('docker restart synapse')
+    # Sleep 2 seconds to let the docker container succesfully start, otherwise we will get an error in the following step
+    time.sleep(2)
 
 
 def create_user(username, password):
@@ -20,7 +24,6 @@ def create_user(username, password):
         "password": password,
         "auth": {"type": "m.login.dummy"}
     }
-    print(username)
     response = requests.post(url, headers=headers, json=data)
     assert response.status_code == 200, f"Unexpected status code: {response.status_code}"
 

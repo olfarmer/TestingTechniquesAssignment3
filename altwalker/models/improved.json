@@ -1,0 +1,82 @@
+{
+    "name": "Default model",
+    "models": [
+        {
+            "name": "ImprovedModel",
+            "generator": "random(edge_coverage(100) && vertex_coverage(100))",
+            "startElementId": "v0",
+            "actions": [
+                "users = [];",
+                "rooms = [];",
+                "username = ''",
+                "password = ''",
+                "roomname = ''",
+                "message = ''"
+            ],
+            "vertices": [
+                {
+                    "id": "v0",
+                    "name": "idle"
+                },
+                {
+                    "id": "v1",
+                    "name": "createUser"
+                },
+                {
+                    "id": "v2",
+                    "name": "createRoom"
+                }
+            ],
+            "edges": [
+                {
+                    "id": "e0",
+                    "name": "creatingUser",
+                    "sourceVertexId": "v0",
+                    "targetVertexId": "v1",
+                    "actions": [
+                        "username = Array(12+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 12);",
+                        "password = Array(8+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 8);"
+                    ]
+                },
+                {
+                    "id": "e1",
+                    "name": "loginUser",
+                    "sourceVertexId": "v1",
+                    "targetVertexId": "v0"
+                },
+                {
+                    "id": "e2",
+                    "name": "dontLoginUser",
+                    "sourceVertexId": "v1",
+                    "targetVertexId": "v0"
+                },
+                {
+                    "id": "e3",
+                    "name": "creatingRoom",
+                    "sourceVertexId": "v0",
+                    "targetVertexId": "v2",
+                    "actions": [
+                        "roomname = Array(12+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 12)"
+                    ],
+                    "guard": "users.length > 0"
+                },
+                {
+                    "id": "e4",
+                    "name": "sendingMessage",
+                    "sourceVertexId": "v0",
+                    "targetVertexId": "v0",
+                    "actions": [
+                        "message = Array(30+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 30)"
+                    ],
+                    "guard": "users.length > 0 && rooms.length > 0"
+                },
+                {
+                    "id": "e5",
+                    "name": "createdRoom",
+                    "sourceVertexId": "v2",
+                    "targetVertexId": "v0"
+                }
+            ]
+        }
+    ]
+}

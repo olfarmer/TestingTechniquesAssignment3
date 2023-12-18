@@ -1,0 +1,98 @@
+Running:
+
+[2023-12-14 15:21:07.239473] setUpRun - RUNNING...
+[2023-12-14 15:21:10.231209] setUpRun - PASSED
+[2023-12-14 15:21:10.248371] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.250415] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.301079] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.303390] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.315188] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:10.555062] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'w6p7z2fg', 'message': '', 'users': '[]', 'username': 'ab71zycnquf0'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]
+
+
+[2023-12-14 15:21:10.576826] ImprovedModel.loginUser - RUNNING...
+[2023-12-14 15:21:10.577824] ImprovedModel.loginUser - PASSED
+[2023-12-14 15:21:10.586785] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.595392] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.625456] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:10.907575] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'f6ntv2ct', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]", 'username': 'fpbcd7evtx90'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]
+
+
+[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - RUNNING...
+[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - PASSED
+[2023-12-14 15:21:10.946260] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:10.946260] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:10.963595] ImprovedModel.creatingUser - RUNNING...
+[2023-12-14 15:21:10.965118] ImprovedModel.creatingUser - PASSED
+[2023-12-14 15:21:10.978429] ImprovedModel.createUser - RUNNING...
+[2023-12-14 15:21:11.235351] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': '3wt9795g', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct',
+  'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]", 'username': 'zy4bzyv7emn0'}
+  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}, {'username': 'zy4bzyv7emn0', 'password': '3wt9795g', 'access_token':
+  'syt_enk0Ynp5djdlbW4w_kmyrlsCifVCMOTNLSqPa_3syf8R'}]
+
+
+[2023-12-14 15:21:11.257265] ImprovedModel.dontLoginUser - RUNNING...
+[2023-12-14 15:21:11.258268] ImprovedModel.dontLoginUser - PASSED
+[2023-12-14 15:21:11.270781] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.272782] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:11.287813] ImprovedModel.creatingRoom - RUNNING...
+[2023-12-14 15:21:11.433642] ImprovedModel.creatingRoom - PASSED
+  Output:
+
+  Creating a room
+
+
+[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - RUNNING...
+[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - PASSED
+[2023-12-14 15:21:11.473560] ImprovedModel.createdRoom - RUNNING...
+[2023-12-14 15:21:11.475142] ImprovedModel.createdRoom - PASSED
+[2023-12-14 15:21:11.486518] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.486518] ImprovedModel.idle - PASSED
+[2023-12-14 15:21:11.505155] ImprovedModel.sendingMessage - RUNNING...
+[2023-12-14 15:21:11.547067] ImprovedModel.sendingMessage - PASSED
+  Output:
+
+  Sending message
+
+
+[2023-12-14 15:21:11.555135] ImprovedModel.idle - RUNNING...
+[2023-12-14 15:21:11.555135] ImprovedModel.idle - PASSED
+
+Statistics:
+
+  Model Coverage.............................100%
+  Number of Models..............................1
+  Completed Models..............................1
+  Incomplete Models.............................0
+  Not Executed Models...........................0
+  Failed Models.................................0
+
+  Vertex Coverage............................100%
+  Number of Vertices............................3
+  Visited Vertices..............................3
+  Unvisited Vertices............................0
+
+  Edge Coverage..............................100%
+  Number of Edges...............................6
+  Visited Edges.................................6
+  Unvisited Edges...............................0
+
+
+Status:  PASSED 
+
