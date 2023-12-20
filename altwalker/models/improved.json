@@ -11,7 +11,8 @@
                 "username = ''",
                 "password = ''",
                 "roomname = ''",
-                "message = ''"
+                "message = ''",
+                "invited_users = []"
             ],
             "vertices": [
                 {
@@ -75,6 +76,13 @@
                     "name": "createdRoom",
                     "sourceVertexId": "v2",
                     "targetVertexId": "v0"
+                },
+                {
+                    "id": "e6",
+                    "name": "addUserToRoom",
+                    "sourceVertexId": "v2",
+                    "targetVertexId": "v2",
+                    "guard": "invited_users.length > 0"
                 }
             ]
         }

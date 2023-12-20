@@ -90,6 +90,7 @@ class ImprovedModel(unittest.TestCase):
         users = json.loads(data['users'].replace("'", '"'))
         users.append({'username': username, 'password': password, 'access_token': response['access_token']})
         data['users'] = json.dumps(users).replace('"', "'")
+        
 
     def createRoom(self):
         pass
@@ -98,27 +99,40 @@ class ImprovedModel(unittest.TestCase):
     def creatingUser(self, data):
         pass
 
-    def loginUser(self):
-        pass
+    def loginUser(self, data):
+        username = data['username']
+        password = data['password']
 
-    def dontLoginUser(self):
-        pass
+        response = adapter.login_user(username, password)
+
+        data['username'] = ''
+        data['password']= ''
+        
+
+    def dontLoginUser(self, data):
+        data['username'] = ''
+        data['password']= ''
 
     def creatingRoom(self, data):
         print("Creating a room")
         users = json.loads(data['users'].replace("'", '"'))
         rooms = json.loads(data['rooms'].replace("'", '"'))
+        room_name = data['roomname']
 
-        room_name = ru.generate_username()[0]
         user = random.choice(users)
+        without_user = [e for e in users if e != user]
+
+        users_to_invite = list(map(lambda x: x['access_token'] , random.choices(without_user, k=random.randint(0, len(without_user)))))
 
         response = adapter.create_room(user['access_token'], room_name)
 
-        rooms.append({'room_name': room_name, 'owner': user['username'], 'room_id': response['room_id'], 'users': [user['username']]})
+        rooms.append({'room_name': room_name, 'owner': user['username'], 'room_id': response['room_id'], 'invited_users': users_to_invite, 'joined_users': [user['access_token']]})
         data['rooms'] = json.dumps(rooms).replace('"', "'")
+        data['invited_users'] = json.dumps(users_to_invite).replace('"', "'")
 
-    def createdRoom(self):
-        pass
+    def createdRoom(self, data):
+        data['roomname'] = ''
+        data['invited_users'] = '[]'
 
     def sendingMessage(self, data):
         print("Sending message")
@@ -126,8 +140,29 @@ class ImprovedModel(unittest.TestCase):
         rooms = json.loads(data['rooms'].replace("'", '"'))
 
         room = random.choice(rooms)
-        user = random.choice(room['users'])
-
-        access_token = [x for x in users if x['username'] == user][0]['access_token']
+        access_token = random.choice(room['joined_users'])
 
         adapter.send_message(access_token, room['room_id'], 'message')
+
+    def addUserToRoom(self, data):
+        return
+        #This does not work completely yet
+        print("Adding user to room")
+        invited_users = data['invited_users']
+        rooms = json.loads(data['rooms'].replace("'", '"'))
+        room_name = data['roomname']
+
+        room = [x for x in rooms if x['room_name'] == room_name][0]
+
+        user = random.choice(invited_users)
+
+        response = adapter.join_room(user, room['room_id'])
+
+        invited_users = invited_users.remove(user)
+
+        data['invited_users'] = json.dumps(invited_users).replace('"', "'")
+        room['invited_users'] = invited_users.remove(user)
+        room['joined_users'] = room['joined_users'].append(user)
+
+        data['rooms'] = json.dumps(rooms).replace('"', "'")
+        

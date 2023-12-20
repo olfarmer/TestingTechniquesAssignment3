@@ -1,78 +1,87 @@
 Running:
 
-[2023-12-14 15:21:07.239473] setUpRun - RUNNING...
-[2023-12-14 15:21:10.231209] setUpRun - PASSED
-[2023-12-14 15:21:10.248371] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:10.250415] ImprovedModel.idle - PASSED
-[2023-12-14 15:21:10.301079] ImprovedModel.creatingUser - RUNNING...
-[2023-12-14 15:21:10.303390] ImprovedModel.creatingUser - PASSED
-[2023-12-14 15:21:10.315188] ImprovedModel.createUser - RUNNING...
-[2023-12-14 15:21:10.555062] ImprovedModel.createUser - PASSED
+[2023-12-20 15:35:52.765319] setUpRun - RUNNING...
+[2023-12-20 15:35:55.698647] setUpRun - PASSED
+[2023-12-20 15:35:55.716819] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:55.718296] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:55.767645] ImprovedModel.creatingUser - RUNNING...
+[2023-12-20 15:35:55.770257] ImprovedModel.creatingUser - PASSED
+[2023-12-20 15:35:55.783381] ImprovedModel.createUser - RUNNING...
+[2023-12-20 15:35:56.022289] ImprovedModel.createUser - PASSED
   Output:
 
   Creating a user
-  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'w6p7z2fg', 'message': '', 'users': '[]', 'username': 'ab71zycnquf0'}
-  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]
 
 
-[2023-12-14 15:21:10.576826] ImprovedModel.loginUser - RUNNING...
-[2023-12-14 15:21:10.577824] ImprovedModel.loginUser - PASSED
-[2023-12-14 15:21:10.586785] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:10.595392] ImprovedModel.idle - PASSED
-[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - RUNNING...
-[2023-12-14 15:21:10.605096] ImprovedModel.creatingUser - PASSED
-[2023-12-14 15:21:10.625456] ImprovedModel.createUser - RUNNING...
-[2023-12-14 15:21:10.907575] ImprovedModel.createUser - PASSED
-  Output:
-
-  Creating a user
-  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': 'f6ntv2ct', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}]", 'username': 'fpbcd7evtx90'}
-  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]
-
-
-[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - RUNNING...
-[2023-12-14 15:21:10.928993] ImprovedModel.loginUser - PASSED
-[2023-12-14 15:21:10.946260] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:10.946260] ImprovedModel.idle - PASSED
-[2023-12-14 15:21:10.963595] ImprovedModel.creatingUser - RUNNING...
-[2023-12-14 15:21:10.965118] ImprovedModel.creatingUser - PASSED
-[2023-12-14 15:21:10.978429] ImprovedModel.createUser - RUNNING...
-[2023-12-14 15:21:11.235351] ImprovedModel.createUser - PASSED
-  Output:
-
-  Creating a user
-  {'JsonContext': 'org.graphwalker.io.factory.json.JsonContext@7f4d9395', 'roomname': '', 'rooms': '[]', 'password': '3wt9795g', 'message': '', 'users': "[{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct',
-  'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}]", 'username': 'zy4bzyv7emn0'}
-  [{'username': 'ab71zycnquf0', 'password': 'w6p7z2fg', 'access_token': 'syt_YWI3MXp5Y25xdWYw_qTCdZzIXhiFkrjGiyBNf_0olRSt'}, {'username': 'fpbcd7evtx90', 'password': 'f6ntv2ct', 'access_token': 'syt_ZnBiY2Q3ZXZ0eDkw_kcSZEFiBnqZrvcOfxCTx_1OwaJt'}, {'username': 'zy4bzyv7emn0', 'password': '3wt9795g', 'access_token':
-  'syt_enk0Ynp5djdlbW4w_kmyrlsCifVCMOTNLSqPa_3syf8R'}]
-
-
-[2023-12-14 15:21:11.257265] ImprovedModel.dontLoginUser - RUNNING...
-[2023-12-14 15:21:11.258268] ImprovedModel.dontLoginUser - PASSED
-[2023-12-14 15:21:11.270781] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:11.272782] ImprovedModel.idle - PASSED
-[2023-12-14 15:21:11.287813] ImprovedModel.creatingRoom - RUNNING...
-[2023-12-14 15:21:11.433642] ImprovedModel.creatingRoom - PASSED
+[2023-12-20 15:35:56.035102] ImprovedModel.loginUser - RUNNING...
+[2023-12-20 15:35:56.250105] ImprovedModel.loginUser - PASSED
+[2023-12-20 15:35:56.268410] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:56.270435] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:56.290311] ImprovedModel.creatingRoom - RUNNING...
+[2023-12-20 15:35:56.424817] ImprovedModel.creatingRoom - PASSED
   Output:
 
   Creating a room
+  []
+  []
 
 
-[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - RUNNING...
-[2023-12-14 15:21:11.457936] ImprovedModel.createRoom - PASSED
-[2023-12-14 15:21:11.473560] ImprovedModel.createdRoom - RUNNING...
-[2023-12-14 15:21:11.475142] ImprovedModel.createdRoom - PASSED
-[2023-12-14 15:21:11.486518] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:11.486518] ImprovedModel.idle - PASSED
-[2023-12-14 15:21:11.505155] ImprovedModel.sendingMessage - RUNNING...
-[2023-12-14 15:21:11.547067] ImprovedModel.sendingMessage - PASSED
+[2023-12-20 15:35:56.446445] ImprovedModel.createRoom - RUNNING...
+[2023-12-20 15:35:56.448038] ImprovedModel.createRoom - PASSED
+[2023-12-20 15:35:56.464119] ImprovedModel.createdRoom - RUNNING...
+[2023-12-20 15:35:56.465715] ImprovedModel.createdRoom - PASSED
+[2023-12-20 15:35:56.480149] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:56.480149] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:56.490186] ImprovedModel.creatingUser - RUNNING...
+[2023-12-20 15:35:56.490186] ImprovedModel.creatingUser - PASSED
+[2023-12-20 15:35:56.510300] ImprovedModel.createUser - RUNNING...
+[2023-12-20 15:35:56.773988] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+
+
+[2023-12-20 15:35:56.789843] ImprovedModel.dontLoginUser - RUNNING...
+[2023-12-20 15:35:56.791898] ImprovedModel.dontLoginUser - PASSED
+[2023-12-20 15:35:56.810140] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:56.810140] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:56.820141] ImprovedModel.creatingUser - RUNNING...
+[2023-12-20 15:35:56.820141] ImprovedModel.creatingUser - PASSED
+[2023-12-20 15:35:56.834886] ImprovedModel.createUser - RUNNING...
+[2023-12-20 15:35:57.077173] ImprovedModel.createUser - PASSED
+  Output:
+
+  Creating a user
+
+
+[2023-12-20 15:35:57.096665] ImprovedModel.dontLoginUser - RUNNING...
+[2023-12-20 15:35:57.096665] ImprovedModel.dontLoginUser - PASSED
+[2023-12-20 15:35:57.121950] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:57.122576] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:57.136465] ImprovedModel.sendingMessage - RUNNING...
+[2023-12-20 15:35:57.180320] ImprovedModel.sendingMessage - PASSED
   Output:
 
   Sending message
 
 
-[2023-12-14 15:21:11.555135] ImprovedModel.idle - RUNNING...
-[2023-12-14 15:21:11.555135] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:57.192216] ImprovedModel.idle - RUNNING...
+[2023-12-20 15:35:57.193250] ImprovedModel.idle - PASSED
+[2023-12-20 15:35:57.205056] ImprovedModel.creatingRoom - RUNNING...
+[2023-12-20 15:35:57.381661] ImprovedModel.creatingRoom - PASSED
+  Output:
+
+  Creating a room
+  [{'username': '6j3faaawq7g0', 'password': 'wmcih3d5', 'access_token': 'syt_NmozZmFhYXdxN2cw_hEqWdJlOsHPFdTtyOeXD_0VV1lZ'}, {'username': '6d8xl4vy0hq0', 'password': '4xwsui72', 'access_token': 'syt_NmQ4eGw0dnkwaHEw_fIJqRiCcGPgGShDDudCc_42GZr4'}]
+  ['syt_NmozZmFhYXdxN2cw_hEqWdJlOsHPFdTtyOeXD_0VV1lZ']
+
+
+[2023-12-20 15:35:57.405835] ImprovedModel.createRoom - RUNNING...
+[2023-12-20 15:35:57.407974] ImprovedModel.createRoom - PASSED
+[2023-12-20 15:35:57.419989] ImprovedModel.addUserToRoom - RUNNING...
+[2023-12-20 15:35:57.419989] ImprovedModel.addUserToRoom - PASSED
+[2023-12-20 15:35:57.433820] ImprovedModel.createRoom - RUNNING...
+[2023-12-20 15:35:57.435119] ImprovedModel.createRoom - PASSED
 
 Statistics:
 
@@ -89,8 +98,8 @@ Statistics:
   Unvisited Vertices............................0
 
   Edge Coverage..............................100%
-  Number of Edges...............................6
-  Visited Edges.................................6
+  Number of Edges...............................7
+  Visited Edges.................................7
   Unvisited Edges...............................0
 
 
